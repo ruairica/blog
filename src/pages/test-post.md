@@ -6,7 +6,7 @@ layout: ../layouts/PostLayout.astro
 ---
 # Test post
 
-[a link](https://www.google.com)
+[a link](https://www.google.com) and then some more text and some more text
 
 ### 1. Install
 

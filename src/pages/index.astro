@@ -24,7 +24,7 @@ const posts = await Astro.glob("./*.md");
       </linearGradient>
     </defs>
 
-    <h1>Ruairi's Blog</h1>
+    <h1 class="header">Ruairi's Blog</h1>
     <p class="blurb">
       Posting thoughts and things I learned recently in an attempt to help me
       remember them 😊
@@ -51,6 +51,11 @@ const posts = await Astro.glob("./*.md");
       width: 220px;
       height: auto;
       z-index: -1;
+    }
+
+    .header {
+      margin-top: 3rem;
+      margin-bottom: 3rem;
     }
 
     .blurb {
