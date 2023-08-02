@@ -5,7 +5,7 @@ import Layout from "../layouts/Layout.astro";
 const posts = await Astro.glob("./*.md");
 ---
 
-<Layout title="Ruairi's blog">
+<Layout>
   <svg
     class="astro-a"
     width="495"
@@ -33,7 +33,7 @@ const posts = await Astro.glob("./*.md");
       </linearGradient>
     </defs>
   </svg>
-  <h1>Welcome to my blog</h1>
+  <h1>Ruairi's Blog</h1>
   <p class="blurb">
     Posting thoughts and things I learned recently in an attempt to help me
     remember them 😊
@@ -44,7 +44,7 @@ const posts = await Astro.glob("./*.md");
         <Card
           href={post.frontmatter.href}
           title={post.frontmatter.title}
-          date={post.frontmatter.date}
+          date={Intl.DateTimeFormat().format(new Date(post.frontmatter.date))}
         />
       ))
     }

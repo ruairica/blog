@@ -1,18 +1,17 @@
 ---
 title: This is a test post to make sure the styling is okay
 href: /test-post
-date: 1st Aug 2023
-layout: ../layouts/Layout.astro
+date: 2023-08-02
+layout: ../layouts/PostLayout.astro
 ---
-# QuickStart
+# Test post
 
-SvelteFire works in both SvelteKit and standalone Svelte apps. This guide assumes you're using SvelteKit.
-
+[a link](https://www.google.com)
 
 ### 1. Install
 
 ```
-npm i sveltefire firebase
+npm i whatever
 ```
 
 ### 2. Initialize
@@ -22,12 +21,6 @@ Initialize Firebase and add the `FirebaseApp` component to the component tree. T
 #### +layout.svelte
 ```svelte
 <script lang="ts">
-    import { FirebaseApp } from 'sveltefire';
-    import { initializeApp } from 'firebase/app';
-    import { getFirestore } from 'firebase/firestore';
-    import { getAuth } from 'firebase/auth';
-
-    // Initialize Firebase
     const app = initializeApp(/* your firebase config */);
     const db = getFirestore(app);
     const auth = getAuth(app);

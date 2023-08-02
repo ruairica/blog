@@ -1,0 +1,31 @@
+---
+import Layout from "./Layout.astro";
+const date = Intl.DateTimeFormat().format(
+  new Date(Astro.props.frontmatter.date)
+);
+---
+
+<Layout>
+  <div class="heading">
+    <a href="/">&larr; Back</a>
+    <p>{date}</p>
+  </div>
+  <slot />
+</Layout>
+
+<style>
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > a {
+      display: block;
+      font-size: 1.5rem;
+    }
+
+    > p {
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+  }
+</style>
