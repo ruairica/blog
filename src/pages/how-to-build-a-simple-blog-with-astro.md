@@ -5,8 +5,6 @@ date: 2023-08-04
 layout: ../layouts/PostLayout.astro
 ---
 
-# How to build a simple blog with Astro
-
 I wanted to learn a new technology and built the site in a way where it would be easy to make new blog posts.
 This post covers some of Astro's basic functionality that I used to build the main functionality of this site.
 Having a basic understanding of HTML/CSS/Javsscript is probably required.
@@ -14,9 +12,8 @@ Having a basic understanding of HTML/CSS/Javsscript is probably required.
 ### Enter Astro
 
 [Astro](https://astro.build/) is a javascript framework for making multi page applications mainly aimed at making content focused sites as it focuses heavily on a fast first page load and being all around SEO friendly.
-It has static site generation functionality where you write content in markdown, and then you can template out pages using ```.astro``` files.
- The developer experience is extremely good due to it's unintimidating syntax as well as the extremely good [docs](https://docs.astro.build/)
-Astro has plenty of more advanced feature's like being able to use React/Svelte/Vue components within Astro itself which I hope to look at in the future but for now we're keeping it basic.
+Astro as a static site generator is quite simple, you write content in markdown, and then you can template the markdown into pages using ```.astro``` files.
+Pages can have client-side interactivity with React/Svelte/Vue components embedded in Astro components which I will look at in the future but for now we're keeping it basic.
 
 
 ### What we're building
@@ -24,7 +21,7 @@ Astro has plenty of more advanced feature's like being able to use React/Svelte/
 A site that supports writing posts in markdown, that are automatically linked to from the homepage in descending order of date.
 I'll be using the default astro project as a base and making modifications to it.
 
-### Steps
+### Getting Started
 
 Before starting if you're using VS Code I'd recommend installing the "Astro" extension.
 
@@ -41,7 +38,7 @@ There's be a few options to for you to choose just make sure to select any optio
 
 #### Astro Fundamentals
 
-```index.astro``` is the home page of the site, you'll see it looks quite a lot like a normal html page, but there's a few things to notice:
+```index.astro``` is the home page of the site, you'll see it looks quite a lot like a normal html page, in fact it's a superset of html, but there's a few things to notice:
 
 
 At the top of the page there is the frontmatter which is essentially the javascript for the page, here you can import other astro components and run some javascript which we'll look at shortly
@@ -93,8 +90,7 @@ you'll see in Layout.astro it contains the html head tag and body. index.astro (
 ```
 is in the layout.
 
-Okay so that's a brief introduction to components, let's add a new page.
-
+### Creating Content
 Pages must be in the ```pages``` directory, they can be ```.astro``` or ```.md files```. Make a new file called ```my-first-blog.md``` in the Pages directory and write some text in it.
 
 you can now visit the page at ```http://127.0.0.1:3000/my-first-blog```. You'll see Astro has transpiled the page to html for us.
@@ -185,7 +181,6 @@ This line retrieves all the .md files in the the ```pages``` directory, so every
 
 Inside the ```<ul>``` tag on ```index.astro``` (where we deleted the ```<Card>``` tags from) add
 
-
 ```astro
       {
         posts
@@ -206,4 +201,11 @@ Inside the ```<ul>``` tag on ```index.astro``` (where we deleted the ```<Card>``
 
 There's a few things going on here, first we open the curly brackets to let Astro know we're about to do some javascript, Astro has a JSX type syntax here you might be familiar with if you've used React. So we have the ```posts``` array from the front matter, we can access the props we set up earlier of the post by using ```.frontmatter.propName```.
 
-So we sort the posts in descending date order and then map them to Card components, passing in the required props.
+So we sort the posts in descending date order and then map them to ```Card``` components, passing in the required props.
+```javascript
+Intl.DateTimeFormat().format(new Date(post.frontmatter.date))
+```
+is just to format from our YYYY-MM-DD format into the users local readable date format.
+You can now click on the card to link directly to my-first-blog page, and all future blog pages will automatically be added as ```<Cards>``` on the home page!
+
+I want to update the blog posts to display the dates and have a link back to the homepage.

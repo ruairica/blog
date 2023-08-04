@@ -2,11 +2,16 @@
 import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
-const dateTimeFormat = Intl.DateTimeFormat();
+const dateOptions = {
+  day: "2-digit", // Two-digit day
+  month: "short", // Abbreviated month name
+  year: "numeric", // Four-digit year
+} as const;
+
 const posts = await Astro.glob("./*.md");
 ---
 
-<Layout>
+<Layout tabTitle="Ruairi's Blog">
   <svg class="bg-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 156">
     <path
       fill="url(#paint0_linear)"
@@ -42,7 +47,10 @@ const posts = await Astro.glob("./*.md");
             <Card
               href={post.frontmatter.href}
               title={post.frontmatter.title}
-              date={dateTimeFormat.format(new Date(post.frontmatter.date))}
+              date={new Date(post.frontmatter.date).toLocaleString(
+                "en-GB",
+                dateOptions
+              )}
             />
           ))
       }
