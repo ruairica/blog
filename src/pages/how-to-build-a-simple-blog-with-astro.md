@@ -4,11 +4,7 @@ href: /how-to-build-a-simple-blog-with-astro
 date: 2023-08-04
 layout: ../layouts/PostLayout.astro
 ---
-
-I wanted to learn a new technology and built the site in a way where it would be easy to make new blog posts.
-This post covers some of Astro's basic functionality that I used to build the main functionality of this site.
-
-### Enter Astro
+### What is Astro?
 
 [Astro](https://astro.build/) is a javascript framework for making multi page applications mainly aimed at making content focused sites as it focuses heavily on a fast first page load and being SEO friendly.
 Astro as a static site generator is quite simple, you write content in markdown, and then you can template the markdown into pages using ```.astro``` files.
