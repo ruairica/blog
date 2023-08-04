@@ -2,6 +2,7 @@
 import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
+const dateTimeFormat = Intl.DateTimeFormat();
 const posts = await Astro.glob("./*.md");
 ---
 
@@ -20,7 +21,7 @@ const posts = await Astro.glob("./*.md");
         gradientUnits="userSpaceOnUse"
       >
         <stop offset="5%" stop-opacity="0.9"></stop>
-        <stop offset="95%" stop-opacity="0.2"></stop>
+        <stop offset="95%" stop-opacity="0.3"></stop>
       </linearGradient>
     </defs>
 
@@ -31,13 +32,19 @@ const posts = await Astro.glob("./*.md");
     </p>
     <ul role="list" class="link-card-grid">
       {
-        posts.map((post) => (
-          <Card
-            href={post.frontmatter.href}
-            title={post.frontmatter.title}
-            date={Intl.DateTimeFormat().format(new Date(post.frontmatter.date))}
-          />
-        ))
+        posts
+          .sort(
+            (a, b) =>
+              new Date(b.frontmatter.date).valueOf() -
+              new Date(a.frontmatter.date).valueOf()
+          )
+          .map((post) => (
+            <Card
+              href={post.frontmatter.href}
+              title={post.frontmatter.title}
+              date={dateTimeFormat.format(new Date(post.frontmatter.date))}
+            />
+          ))
       }
     </ul>
   </svg>
@@ -54,6 +61,7 @@ const posts = await Astro.glob("./*.md");
     }
 
     .header {
+      font-size: 3em;
       margin-top: 3rem;
       margin-bottom: 3rem;
     }
