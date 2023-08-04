@@ -7,13 +7,12 @@ layout: ../layouts/PostLayout.astro
 
 I wanted to learn a new technology and built the site in a way where it would be easy to make new blog posts.
 This post covers some of Astro's basic functionality that I used to build the main functionality of this site.
-Having a basic understanding of HTML/CSS/Javsscript is probably required.
 
 ### Enter Astro
 
-[Astro](https://astro.build/) is a javascript framework for making multi page applications mainly aimed at making content focused sites as it focuses heavily on a fast first page load and being all around SEO friendly.
+[Astro](https://astro.build/) is a javascript framework for making multi page applications mainly aimed at making content focused sites as it focuses heavily on a fast first page load and being SEO friendly.
 Astro as a static site generator is quite simple, you write content in markdown, and then you can template the markdown into pages using ```.astro``` files.
-Pages can have client-side interactivity with React/Svelte/Vue components embedded in Astro components which I will look at in the future but for now we're keeping it basic.
+Astro can do a lot more than a normal SSG, for example it can have client-side interactivity with React/Svelte/Vue components embedded in Astro components which I will look at in the future but for now we're keeping it basic.
 
 
 ### What we're building
@@ -41,7 +40,8 @@ There's be a few options to for you to choose just make sure to select any optio
 ```index.astro``` is the home page of the site, you'll see it looks quite a lot like a normal html page, in fact it's a superset of html, but there's a few things to notice:
 
 
-At the top of the page there is the frontmatter which is essentially the javascript for the page, here you can import other astro components and run some javascript which we'll look at shortly
+At the top of the page there is the frontmatter which is essentially the javascript for the page, frontmatter is term taken from markdown, which also uses the same triple hypen fence syntax,
+to hold metadata about the content. In the frontmatter you can import other astro components and run some javascript which we'll look at shortly
 ```astro
 ---
 import Layout from '../layouts/Layout.astro';
@@ -82,7 +82,7 @@ Components also have their own style tags. Component styles are scoped to that c
 ```
 
 
-The index.astro page content is wrapped with the Layout Component page```<Layout title="Welcome to Astro.">```. Layout Components are essentially a wrapper for your content,
+The index.astro page content is wrapped with the Layout Component page ```<Layout title="Welcome to Astro.">```. Layout Components are essentially a wrapper for your content,
 you'll see in Layout.astro it contains the html head tag and body. index.astro (or any other component that uses the layout) will be placed where the
 
 ```astro
@@ -108,7 +108,7 @@ layout: ../layouts/Layout.astro
 title,href, and date are "normal" props, but we're using layout with a relative file path so that our my-first-blog page is also wrapped in the same layout as the home page.
 
 
-We'll update a few things here to get some styling on our my-first-blog page ```index.astro``` cut
+We'll update a few things here to get some styling on our my-first-blog page. In ```index.astro``` cut
 
 ```css
 main {
@@ -122,7 +122,8 @@ main {
 }
 ```
 
-and paste it with the other css in ```Layout.astro```. Remove the opening and closing ```<main>``` tags from ```index.astro```, In ```Layout.astro``` wrap ```<slot />``` in main tags, also makes the styles global with ```is:global```, here's a snippet of our changes to Layout.astro
+and paste it with the other css in ```Layout.astro```. Remove the opening and closing ```<main>``` tags from ```index.astro```.
+In ```Layout.astro``` wrap ```<slot />``` in main tags, also makes the styles global with ```is:global```, here's a snippet of our changes to Layout.astro
 
 ```astro
     <main>
@@ -171,13 +172,20 @@ const { href, title, date } = Astro.props;
 </li>
 ```
 
-Delete the `<Card>` tags from index.astro for now, and add this line to the frontmatter of index.astro
+In ```index.astro``` delete the `<Card>` tags from  for now, and add the following to the frontmatter
 
 ```javascript
+const dateOptions = {
+  day: "2-digit", // Two-digit day
+  month: "short", // Abbreviated month name
+  year: "numeric", // Four-digit year
+} as const;
+
 const posts = await Astro.glob("./*.md");
 ```
 
-This line retrieves all the .md files in the the ```pages``` directory, so everytime we add a new blog post it will automatically be retrieved here.
+The ```dateOptions``` object will be used later for formatting the date
+and the next line retrieves all the .md files in the the ```pages``` directory, so everytime we add a new blog post it will automatically be retrieved here.
 
 Inside the ```<ul>``` tag on ```index.astro``` (where we deleted the ```<Card>``` tags from) add
 
@@ -193,7 +201,10 @@ Inside the ```<ul>``` tag on ```index.astro``` (where we deleted the ```<Card>``
             <Card
               href={post.frontmatter.href}
               title={post.frontmatter.title}
-              date={Intl.DateTimeFormat().format(new Date(post.frontmatter.date))}
+              date={new Date(post.frontmatter.date).toLocaleString(
+                "en-GB",
+                dateOptions
+              )}
             />
           ))
       }
@@ -203,9 +214,92 @@ There's a few things going on here, first we open the curly brackets to let Astr
 
 So we sort the posts in descending date order and then map them to ```Card``` components, passing in the required props.
 ```javascript
-Intl.DateTimeFormat().format(new Date(post.frontmatter.date))
+new Date(post.frontmatter.date).toLocaleString(
+                "en-GB",
+                dateOptions
+              )
 ```
-is just to format from our YYYY-MM-DD format into the users local readable date format.
+is just to format from our YYYY-MM-DD format into a more readable format, It's important to remember that javascript in the astro template is not executed on the client, but is pre-rendered as html,
+so we couldn't for example format the date to the users local date format. For javascript to run on the client in an Astro component it would require a ```<script>``` tag.
+
 You can now click on the card to link directly to my-first-blog page, and all future blog pages will automatically be added as ```<Cards>``` on the home page!
 
-I want to update the blog posts to display the dates and have a link back to the homepage.
+I want to update the blog posts to display the dates and have a link back to the homepage. To do this we can use another layout, create a new file called ```PostLayout.astro``` and insert:
+
+```astro
+---
+import Layout from "./Layout.astro";
+
+const dateOptions = {
+  day: "2-digit", // Two-digit day
+  month: "short", // Abbreviated month name
+  year: "numeric", // Four-digit year
+} as const;
+
+interface Props {
+  frontmatter: Frontmatter;
+}
+
+interface Frontmatter {
+  title: string;
+  date: string;
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+  <div class="heading">
+    <a href="/">&larr; Back</a>
+    <p>{new Date(frontmatter.date).toLocaleString("en-GB", dateOptions)}</p>
+  </div>
+  <article>
+    <h1>{frontmatter.title}</h1>
+    <slot />
+  </article>
+
+  <style>
+    h1 {
+      font: 1.5rem;
+    }
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      > a {
+        display: block;
+        font-size: 1.5rem;
+      }
+
+      > p {
+        font-weight: 600;
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</Layout>
+```
+
+So this layout is inserted within our original ```Layout.astro```. In the frontmatter we retrieve the front matter of the markdown file, then pass the title  into the original Layout which
+will be used as the html title (you can see it being used in as the name of the tab in your browser). At the top of the page we're inserting an ```<a>``` tag to link back as well as inserting the date,
+which is formatted in the same way as on the index page. We add the title as a ```<h1>``` and then our blog content will be inserted just underneat that, where the ```<slot />``` is.
+
+Now we need to update the frontmatter in our blog post to use the new layout.
+
+```markdown
+---
+layout: ../layouts/PostLayout.astro
+---
+```
+
+So now our site is set up so we can just write a blog in a ```.md``` file in the ```pages``` directory, and as we use the same frontmatter format as the original blog,
+it will be automatically linked and laid out how we want.
+
+```markdown
+---
+title: any title
+href: /filename-without-extension
+date: YYYY-MM-DD
+layout: ../layouts/PostLayout.astro
+---
+```
