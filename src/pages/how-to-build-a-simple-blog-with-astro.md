@@ -14,7 +14,6 @@ This post covers some of Astro's basic functionality that I used to build the ma
 Astro as a static site generator is quite simple, you write content in markdown, and then you can template the markdown into pages using ```.astro``` files.
 Astro can do a lot more than a normal SSG, for example it can have client-side interactivity with React/Svelte/Vue components embedded in Astro components which I will look at in the future but for now we're keeping it basic.
 
-
 ### What we're building
 
 A site that supports writing posts in markdown, that are automatically linked to from the homepage in descending order of date.
