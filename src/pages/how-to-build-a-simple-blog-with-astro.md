@@ -7,8 +7,8 @@ layout: ../layouts/PostLayout.astro
 ### What is Astro?
 
 [Astro](https://astro.build/) is a javascript framework for making multi page applications mainly aimed at making content focused sites as it focuses heavily on a fast first page load and being SEO friendly.
-Astro as a static site generator is quite simple, you write content in markdown, and then you can template the markdown into pages using ```.astro``` files.
-Astro can do a lot more than a normal SSG, for example it can have client-side interactivity with React/Svelte/Vue components embedded in Astro components which I will look at in the future but for now we're keeping it basic.
+Astro as a static site generator is quite simple, you write content in markdown, and then you can template the markdown into web pages using ```.astro``` files.
+Astro can do a lot more than a normal SSG, for example it can have client-side interactivity with React/Svelte/Vue components embedded in Astro components but I won't be exploring that here.
 
 ### What we're building
 
@@ -58,13 +58,13 @@ You can see that the card component is passed 3 props which can then be used wit
 
 Open  ```Card.astro```
 
-Components can access their props with Astro.props in the front matter
+Components can access their props with Astro.props in the frontmatter
 
 ```astro
 const { href, title, body } = Astro.props;
 ```
 
-and then interpolated into the html with curly brackets
+and then the props can be interpolated into the html with curly brackets
 ```astro
 <a href={href}>
 
@@ -78,7 +78,7 @@ Components also have their own style tags. Component styles are scoped to that c
 
 
 The index.astro page content is wrapped with the Layout Component page ```<Layout title="Welcome to Astro.">```. Layout Components are essentially a wrapper for your content,
-you'll see in Layout.astro it contains the html head tag and body. index.astro (or any other component that uses the layout) will be placed where the
+you'll see in Layout.astro it contains the html head tag and a body. index.astro (or any other component that uses the layout) will be placed where the
 
 ```astro
 <slot />
@@ -167,7 +167,7 @@ const { href, title, date } = Astro.props;
 </li>
 ```
 
-In ```index.astro``` delete the `<Card>` tags from  for now, and add the following to the frontmatter
+In ```index.astro``` delete the `<Card>` tags for now, and add the following to the frontmatter
 
 ```javascript
 const dateOptions = {
@@ -205,9 +205,10 @@ Inside the ```<ul>``` tag on ```index.astro``` (where we deleted the ```<Card>``
       }
 ```
 
-There's a few things going on here, first we open the curly brackets to let Astro know we're about to do some javascript, Astro has a JSX type syntax here you might be familiar with if you've used React. So we have the ```posts``` array from the front matter, we can access the props we set up earlier of the post by using ```.frontmatter.propName```.
+There's a few things going on here, first we open the curly brackets to let Astro know we're about to do some javascript, Astro has a JSX type syntax here you might be familiar with if you've used React.
+ So we have the ```posts``` array from the front matter, we can access the props we set up earlier of the post by using ```.frontmatter.propName```.
 
-So we sort the posts in descending date order and then map them to ```Card``` components, passing in the required props.
+We sort the posts in descending date order and then map them to ```Card``` components, passing in the required props.
 ```javascript
 new Date(post.frontmatter.date).toLocaleString(
                 "en-GB",
@@ -275,9 +276,9 @@ const { frontmatter } = Astro.props;
 </Layout>
 ```
 
-So this layout is inserted within our original ```Layout.astro```. In the frontmatter we retrieve the front matter of the markdown file, then pass the title  into the original Layout which
+So this layout is inserted within our original ```Layout.astro```. In the frontmatter we retrieve the frontmatter of the markdown file, then pass the title  into the original Layout which
 will be used as the html title (you can see it being used in as the name of the tab in your browser). At the top of the page we're inserting an ```<a>``` tag to link back as well as inserting the date,
-which is formatted in the same way as on the index page. We add the title as a ```<h1>``` and then our blog content will be inserted just underneat that, where the ```<slot />``` is.
+which is formatted in the same way as on the index page. We add the title as a ```<h1>``` and then our blog content will be inserted just underneath that, where the ```<slot />``` is.
 
 Now we need to update the frontmatter in our blog post to use the new layout.
 
