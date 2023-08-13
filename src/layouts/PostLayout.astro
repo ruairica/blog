@@ -2,50 +2,50 @@
 import Layout from "./Layout.astro";
 
 const dateOptions = {
-  day: "2-digit", // Two-digit day
-  month: "short", // Abbreviated month name
-  year: "numeric", // Four-digit year
+    day: "2-digit", // Two-digit day
+    month: "short", // Abbreviated month name
+    year: "numeric", // Four-digit year
 } as const;
 
 interface Props {
-  frontmatter: Frontmatter;
+    frontmatter: Frontmatter;
 }
 
 interface Frontmatter {
-  title: string;
-  date: string;
+    title: string;
+    date: string;
 }
 
 const { frontmatter } = Astro.props;
 ---
 
 <Layout tabTitle={frontmatter.title}>
-  <div class="heading">
-    <a href="/">&larr; Back</a>
-    <p>{new Date(frontmatter.date).toLocaleString("en-GB", dateOptions)}</p>
-  </div>
-  <article>
-    <h1>{frontmatter.title}</h1>
-    <slot />
-  </article>
+    <div class="heading">
+        <a href="/">&larr; Back</a>
+        <p>{new Date(frontmatter.date).toLocaleString("en-GB", dateOptions)}</p>
+    </div>
+    <article>
+        <h1>{frontmatter.title}</h1>
+        <slot />
+    </article>
 
-  <style>
-    h1 {
-      font: 1.5rem;
-    }
-    .heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      > a {
-        display: block;
-        font-size: 1.5rem;
-      }
+    <style>
+        h1 {
+            font: 1.5rem;
+        }
+        .heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            > a {
+                display: block;
+                font-size: 1.5rem;
+            }
 
-      > p {
-        font-weight: 600;
-        font-size: 1.5rem;
-      }
-    }
-  </style>
+            > p {
+                font-weight: 600;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </Layout>

@@ -3,92 +3,95 @@ import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
 const dateOptions = {
-  day: "2-digit", // Two-digit day
-  month: "short", // Abbreviated month name
-  year: "numeric", // Four-digit year
+    day: "2-digit", // Two-digit day
+    month: "short", // Abbreviated month name
+    year: "numeric", // Four-digit year
 } as const;
 
 const posts = await Astro.glob("./*.md");
 ---
 
 <Layout tabTitle="Ruairi's Blog">
-  <svg class="bg-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 156">
-    <path
-      fill="url(#paint0_linear)"
-      fill-rule="evenodd"
-      clip-rule="evenodd"
-      d="m0 100.8c0-14.8 4-26.8 10.4-36 0 18.2 4.4 24.6 14 24.6 6.4 0 13-4.8 13-13 0-7.4-5-20.8-5-35.2s4.8-29.8 24.4-41.2c-4.4 11.6-6.2 21.4-6.2 29.4 0 21.2 12.8 30.8 24.2 30.8 9.2 0 18.8-6 18.8-23.4 6.2 6.8 9 14.6 9 22.4 0 12.4-6.8 23.4-6.8 33.4 0 8.2 6.6 13 13 13 11.4 0 14.8-10.2 14.8-27 3.4 5.8 6.4 17.2 6.4 27 0 29.2-27.6 50.4-58.4 50.4 26-9.8 30.8-22.8 30.8-37.4-6.4 11.4-13 13-16.2 13-19.6 0 1.6-37.4-32.6-63.4 5.6 12 7.8 22.4 7.8 30.8 0 18-9.8 27.8-19.2 27.8-8 0-16-6.4-19.2-20 0 19 5.6 37 30.6 49.2-39-6.4-53.6-30.8-53.6-55.2z"
-    ></path>
-    <defs>
-      <linearGradient
-        id="paint0_linear"
-        gradientTransform="rotate(90)"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop offset="5%" stop-opacity="0.9"></stop>
-        <stop offset="95%" stop-opacity="0.3"></stop>
-      </linearGradient>
-    </defs>
+    <svg
+        class="bg-svg"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 130 156"
+    >
+        <path
+            fill="url(#paint0_linear)"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="m0 100.8c0-14.8 4-26.8 10.4-36 0 18.2 4.4 24.6 14 24.6 6.4 0 13-4.8 13-13 0-7.4-5-20.8-5-35.2s4.8-29.8 24.4-41.2c-4.4 11.6-6.2 21.4-6.2 29.4 0 21.2 12.8 30.8 24.2 30.8 9.2 0 18.8-6 18.8-23.4 6.2 6.8 9 14.6 9 22.4 0 12.4-6.8 23.4-6.8 33.4 0 8.2 6.6 13 13 13 11.4 0 14.8-10.2 14.8-27 3.4 5.8 6.4 17.2 6.4 27 0 29.2-27.6 50.4-58.4 50.4 26-9.8 30.8-22.8 30.8-37.4-6.4 11.4-13 13-16.2 13-19.6 0 1.6-37.4-32.6-63.4 5.6 12 7.8 22.4 7.8 30.8 0 18-9.8 27.8-19.2 27.8-8 0-16-6.4-19.2-20 0 19 5.6 37 30.6 49.2-39-6.4-53.6-30.8-53.6-55.2z"
+        ></path>
+        <defs>
+            <linearGradient
+                id="paint0_linear"
+                gradientTransform="rotate(90)"
+                gradientUnits="userSpaceOnUse"
+            >
+                <stop offset="5%" stop-opacity="0.9"></stop>
+                <stop offset="95%" stop-opacity="0.3"></stop>
+            </linearGradient>
+        </defs>
 
-    <h1 class="header">Ruairi's Blog</h1>
-    <p class="blurb">
-      Posting thoughts and things I learned recently in an attempt to help me
-      remember them 😊
-    </p>
-    <ul role="list" class="link-card-grid">
-      {
-        posts
-          .sort(
-            (a, b) =>
-              new Date(b.frontmatter.date).valueOf() -
-              new Date(a.frontmatter.date).valueOf()
-          )
-          .map((post) => (
-            <Card
-              href={post.frontmatter.href}
-              title={post.frontmatter.title}
-              date={new Date(post.frontmatter.date).toLocaleString(
-                "en-GB",
-                dateOptions
-              )}
-            />
-          ))
-      }
-    </ul>
-  </svg>
+        <h1 class="header">Ruairi's Blog</h1>
+        <p class="blurb">
+            Posting thoughts and things I learned recently in an attempt to help
+            me remember them 😊
+        </p>
+        <ul role="list" class="link-card-grid">
+            {
+                posts
+                    .sort(
+                        (a, b) =>
+                            new Date(b.frontmatter.date).valueOf() -
+                            new Date(a.frontmatter.date).valueOf()
+                    )
+                    .map((post) => (
+                        <Card
+                            href={post.frontmatter.href}
+                            title={post.frontmatter.title}
+                            date={new Date(
+                                post.frontmatter.date
+                            ).toLocaleString("en-GB", dateOptions)}
+                        />
+                    ))
+            }
+        </ul>
+    </svg>
 
-  <style>
-    .bg-svg {
-      position: absolute;
-      top: -32px;
-      left: 50%;
-      transform: translatex(-50%);
-      width: 220px;
-      height: auto;
-      z-index: -1;
-    }
+    <style>
+        .bg-svg {
+            position: absolute;
+            top: -32px;
+            left: 50%;
+            transform: translatex(-50%);
+            width: 220px;
+            height: auto;
+            z-index: -1;
+        }
 
-    .header {
-      font-size: 3em;
-      margin-top: 3rem;
-      margin-bottom: 3rem;
-    }
+        .header {
+            font-size: 3em;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+        }
 
-    .blurb {
-      margin-bottom: 2rem;
-      border: 1px solid rgba(var(--accent-light), 25%);
-      background: linear-gradient(
-        rgba(var(--accent-dark), 66%),
-        rgba(var(--accent-dark), 33%)
-      );
-      padding: 1.5rem;
-      border-radius: 8px;
-    }
-    .link-card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-      gap: 2rem;
-      padding: 0;
-    }
-  </style>
+        .blurb {
+            margin-bottom: 2rem;
+            border: 1px solid rgba(var(--accent-light), 25%);
+            background: linear-gradient(
+                rgba(var(--accent-dark), 66%),
+                rgba(var(--accent-dark), 33%)
+            );
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        .link-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+            gap: 2rem;
+            padding: 0;
+        }
+    </style>
 </Layout>

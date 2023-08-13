@@ -1,6 +1,8 @@
 ---
+import { ViewTransitions } from "astro:transitions";
+
 interface Props {
-  tabTitle: string;
+    tabTitle: string;
 }
 
 const { tabTitle } = Astro.props;
@@ -8,71 +10,73 @@ const { tabTitle } = Astro.props;
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content={tabTitle} />
-    <meta name="viewport" content="width=device-width" />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>"
-    />
-    <meta name="generator" content={Astro.generator} />
-    <title>{tabTitle}</title>
-  </head>
-  <body>
-    <main>
-      <slot />
-    </main>
-  </body>
+    <head>
+        <ViewTransitions />
+        <meta charset="UTF-8" />
+        <meta name="description" content={tabTitle} />
+        <meta name="viewport" content="width=device-width" />
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>"
+        />
+        <meta name="generator" content={Astro.generator} />
+        <title>{tabTitle}</title>
+    </head>
+    <body>
+        <main transition:animate="slide">
+            <slot />
+        </main>
+        <style is:global>
+            :root {
+                --accent: 136, 58, 234;
+                --accent-light: 224, 204, 250;
+                --accent-dark: 49, 10, 101;
+                --accent-gradient: linear-gradient(
+                    45deg,
+                    rgb(var(--accent)),
+                    rgb(var(--accent-light)) 30%,
+                    white 60%
+                );
+            }
+            html {
+                font-family: system-ui, sans-serif;
+                background: #13151a;
+                background-size: 224px;
+            }
+
+            pre {
+                border-radius: 6px;
+                padding: 0.75rem;
+            }
+
+            main {
+                margin: auto;
+                padding: 1rem;
+                width: 800px;
+                max-width: calc(100% - 2rem);
+                color: white;
+                font-size: 20px;
+                line-height: 1.6;
+            }
+
+            code {
+                font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+                    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+                    monospace;
+            }
+
+            h1 {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-weight: 700;
+                line-height: 1.4;
+                text-align: center;
+                background-image: var(--accent-gradient);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-size: 400%;
+                background-position: 0%;
+            }
+        </style>
+    </body>
 </html>
-<style is:global>
-  :root {
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      rgb(var(--accent-light)) 30%,
-      white 60%
-    );
-  }
-  html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
-    background-size: 224px;
-  }
-
-  pre {
-    border-radius: 6px;
-    padding: 0.75rem;
-  }
-
-  main {
-    margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-    color: white;
-    font-size: 20px;
-    line-height: 1.6;
-  }
-
-  code {
-    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-  }
-
-  h1 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-weight: 700;
-    line-height: 1.4;
-    text-align: center;
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 400%;
-    background-position: 0%;
-  }
-</style>
