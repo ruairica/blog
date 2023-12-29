@@ -158,7 +158,7 @@ var petsList =
 petsList.GroupBy(
             pet => Math.Floor(pet.Age), // grouping key
             pet => pet.Age, // value
-            (key, values) => $"Key: {key}, Count: {values.Count()}, Minimum: {values.Min()}, Maximum: {values.Max()}"); // selector
+            (key, values) => $"Key: {key}, Count: {values.Count()}, Minimum: {values.Min()}, Maximum: {values.Max()}"); // selector function
 
 // "Key: 8, Count: 1, Minimum: 8.3, Maximum: 8.3", "Key: 4, Count: 2, Minimum: 4.3, Maximum: 4.9", "Key: 1, Count: 1, Minimum: 1.5, Maximum: 1.5"
 ```
