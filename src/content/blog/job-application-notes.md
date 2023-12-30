@@ -1,8 +1,6 @@
 ---
 title: Job Application Notes
-href: /job-application-notes
 date: 2023-10-20
-layout: ../../layouts/PostLayout.astro
 ---
 I've just finished a job search recently, and while the process is fresh in my head I've made some notes on how my preferred strategy and general pointers that I've picked up throughout my time.
 This advice isn't really specific to any industry and will be very high level.

@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
 export const prerender = true;
 
 // 1. Generate a new path for every collection entry
@@ -15,4 +16,6 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Content />
+<PostLayout frontmatter={entry.data}>
+  <Content />
+</PostLayout>

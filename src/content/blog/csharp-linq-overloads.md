@@ -1,10 +1,7 @@
 ---
 title: C# Linq Overloads
-href: /csharp-linq-overloads
 date: 2023-12-29
-layout: ../../layouts/PostLayout.astro
 ---
-
 Linq in C# provides extension methods to the IEnumerable interface that let you work with enumerables using a concise and declarative syntax. Whilst every C# developer is familiar with Linq syntax, there are some lesser known overloads of the popular methods that can be useful to have in your back pocket.
 
 ### Select/SelectMany/Where with index
@@ -92,7 +89,7 @@ var combinations = collection.SelectMany(
 ```
 
 
-### FirstOrDefault/SingleOrDefault/LastOrDefault with default value
+### FirstOrDefault / SingleOrDefault / LastOrDefault with default value
 ```FirstOrDefault```, ```SingleOrDefault```, and ```LastOrDefault``` are commonly used to try and find an element you're not certain will be in a collection, if your predicate is not satisifed the default value will be the default value of whatever type your collection is made up of, eg ```null``` for reference types or ```0``` for ```int```. However you can specify a default value with the (Func<T, bool> predicate, T defaultValue) overload.
 
 ##### Usage

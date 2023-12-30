@@ -1,8 +1,6 @@
 ---
 title: How to build a simple blog with Astro
-href: /how-to-build-a-simple-blog-with-astro
 date: 2023-08-04
-layout: ../../layouts/PostLayout.astro
 ---
 ### What is Astro?
 
