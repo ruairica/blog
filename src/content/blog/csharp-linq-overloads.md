@@ -2,7 +2,7 @@
 title: C# Linq Overloads
 href: /csharp-linq-overloads
 date: 2023-12-29
-layout: ../layouts/PostLayout.astro
+layout: ../../layouts/PostLayout.astro
 ---
 
 Linq in C# provides extension methods to the IEnumerable interface that let you work with enumerables using a concise and declarative syntax. Whilst every C# developer is familiar with Linq syntax, there are some lesser known overloads of the popular methods that can be useful to have in your back pocket.

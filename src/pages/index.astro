@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
@@ -8,7 +9,7 @@ const dateOptions = {
   year: "numeric", // Four-digit year
 } as const;
 
-const posts = await Astro.glob("./*.md");
+const posts = await getCollection("blog"); // Astro.glob("./*.md");
 ---
 
 <Layout tabTitle="Ruairi's Blog">
@@ -40,14 +41,13 @@ const posts = await Astro.glob("./*.md");
         posts
           .sort(
             (a, b) =>
-              new Date(b.frontmatter.date).valueOf() -
-              new Date(a.frontmatter.date).valueOf()
+              new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
           )
           .map((post) => (
             <Card
-              href={post.frontmatter.href}
-              title={post.frontmatter.title}
-              date={new Date(post.frontmatter.date).toLocaleString(
+              href={"posts/" + post.slug}
+              title={post.data.title}
+              date={new Date(post.data.date).toLocaleString(
                 "en-GB",
                 dateOptions
               )}
