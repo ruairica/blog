@@ -8,7 +8,7 @@ Fluent Assertions is a test framework agnostic Nuget package which provides a se
 Get started with `dotnet add package FluentAssertions`
 
 ## Syntax
-The general format of a a Fluent Assertion is that the value being asserted on comes first, then the Should() method is called on it, followed by one of the built in assertion methods. There are many useful built in assertion methods which make it easy read and write assertions. Let's start simple:
+The general format of a Fluent Assertion is that the value being asserted on comes first, then the Should() method is called on it, followed by one of the built in assertion methods. There are many useful built in assertion methods which make it easy read and write assertions. Let's start simple,
 
 ```csharp
 var result = 5;
@@ -139,12 +139,12 @@ response.Should().ContainSingle().Which.Should()
 dictionary.Should().ContainValue(myClass).Which.SomeProperty.Should().BeGreaterThan(0);
 ```
 These could all be written as separate assertions, but this syntax is more succinct.
-I haven't mentioned the `Match` method, it allows you to assert by predicate on any type.
+I haven't mentioned the `Match` method. It allows you to assert by predicate on any type.
 There are many methods that haven't been covered here, like asserting on dictionaries
 includes `Should().ContainKey(...)` and `ContainValue(...)`
 
 ## Multiple Assertions
-Normally, a test will stop when the first assertion fails (because an exception is thrown) but if you want the test
+Normally, a test will stop when the first assertion fails (because an exception is thrown), but if you want the test
 to continue, and collect all failed assertions regardless of whether an earlier one failed, you can do so by creating a new `AssertionScope` in combination with a `using` statement, now any and all assertions that failed, are thrown only when code execution leaves the scope of the `using` statement
 
 ```csharp
@@ -160,7 +160,7 @@ using (new AssertionScope())
 
 ## Error Messaging
 
-By default I think the error messsages provided by Fluent Assertions are better than test framework defaults because they are easier to read at a glance, for example
+By default I think the error messages provided by Fluent Assertions are better than test framework defaults because they are easier to read at a glance, for example
 
 ```csharp
 var sut = 5;
@@ -176,7 +176,7 @@ Assert.That(sut, Is.EqualTo(6));
   But was:  5  */
 ```
 
-All the assertions provided by Fluent Assertions, come with an optional "because" parameter than can be supplied to enhance
+All the assertions provided by Fluent Assertions come with an optional "because" parameter than can be supplied to enhance
 the error message.
 
 ```csharp

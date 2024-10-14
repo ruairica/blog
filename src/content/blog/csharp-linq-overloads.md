@@ -19,7 +19,7 @@ Enumerable.Range(1, 5).Where((_, index) => index % 2 ==0)
 Enumerable.Range(1, 5).SelectMany((value, index) => new List<(int,int)>{(value,index)});
 // (1,0), (2,1), (3,2), (4,3), (5,4)
 ```
-I find the overload of ```Select``` to be the most useful out of the three, If I need to loop over a collection and need the index as well as the element I prefer to do
+I find the overload of ```Select``` to be the most useful out of the three, If I need to loop over a collection and need the index as well as the element, I prefer to do
 ```csharp
 foreach(var (el, i) in someCollection.Select((el,i) => (el,i)))
 {}
@@ -71,7 +71,7 @@ petOwners
 
 
 #### Combining index and selector function on SelectMany
-Say you wanted to get all possible combinations of a collection of numbers, eg for the integers 1, 2, 3, you want (1, 2), (1, 3), (2, 3). This can be achived by combining the two techniques above, and some usage of ```Skip```.
+Say you wanted to get all possible combinations of a collection of numbers, e.g. for the integers 1, 2, 3, you want (1, 2), (1, 3), (2, 3). This can be achieved by combining the two techniques above, and some usage of ```Skip```.
 
 ```csharp
 var collection = Enumerable.Range(1, 3).ToList();
@@ -90,7 +90,7 @@ var combinations = collection.SelectMany(
 
 
 ### FirstOrDefault / SingleOrDefault / LastOrDefault with default value
-```FirstOrDefault```, ```SingleOrDefault```, and ```LastOrDefault``` are commonly used to try and find an element you're not certain will be in a collection, if your predicate is not satisifed the default value will be the default value of whatever type your collection is made up of, eg ```null``` for reference types or ```0``` for ```int```. However you can specify a default value with the (Func<T, bool> predicate, T defaultValue) overload.
+```FirstOrDefault```, ```SingleOrDefault```, and ```LastOrDefault``` are commonly used to try and find an element you're not certain will be in a collection, if your predicate is not satisified the default value will be the default value of whatever type your collection is made up of, eg ```null``` for reference types or ```0``` for ```int```. However you can specify a default value with the (Func<T, bool> predicate, T defaultValue) overload.
 
 ##### Usage
 ```csharp
@@ -109,7 +109,7 @@ Enumerable.Range(1, 4).Max(x => (5 - x) * x);
 // 6
 ```
 
-This is a more consise and efficient way to write:
+This is a more concise and efficient way to write:
 
 ```csharp
 Enumerable.Range(1, 4).Select(x => (5 - x) * x).Max();
