@@ -2,6 +2,10 @@
 title: C# Fluent Assertions
 date: 2024-06-18
 ---
+
+**Edit: Fluent Assertions is no longer free to use as of version 8.**
+
+
 Fluent Assertions is a test framework agnostic Nuget package which provides a set of extension methods that allow you to more naturally specify the expected outcome of unit tests.
 
 
