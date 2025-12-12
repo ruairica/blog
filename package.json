@@ -10,7 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.10.3"
+    "astro": "^5.16.5"
   },
   "engines": {
     "node": ">=18.0.0"
