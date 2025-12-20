@@ -26,7 +26,7 @@ let isHomepage = tabTitle == "Ruairi's Blog";
     }
     <link
       rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>"
     />
     <meta name="generator" content={Astro.generator} />
     <title>{tabTitle}</title>
@@ -39,52 +39,130 @@ let isHomepage = tabTitle == "Ruairi's Blog";
 </html>
 <style is:global>
   :root {
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      rgb(var(--accent-light)) 30%,
-      white 60%
-    );
+    /* Industrial color palette */
+    --steel-blue: 74, 95, 122;
+    --safety-yellow: 244, 183, 0;
+    --industrial-orange: 255, 107, 53;
+    --concrete-dark: 26, 28, 29;
+    --concrete-mid: 42, 45, 46;
+    --concrete-light: 58, 62, 64;
+    --metal-gray: 101, 109, 120;
+    --off-white: 232, 230, 227;
+    --warning-red: 214, 48, 49;
+
+    /* Main theme colors */
+    --accent: var(--safety-yellow);
+    --accent-secondary: var(--industrial-orange);
+    --bg-primary: rgb(var(--concrete-dark));
+    --bg-secondary: rgb(var(--concrete-mid));
+    --text-primary: rgb(var(--off-white));
+    --text-secondary: rgb(var(--metal-gray));
+    --border-color: rgb(var(--concrete-light));
   }
+
   html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
-    background-size: 224px;
+    font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+    background: var(--bg-primary);
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(var(--concrete-light), 0.1) 2px,
+        rgba(var(--concrete-light), 0.1) 4px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(var(--concrete-light), 0.1) 2px,
+        rgba(var(--concrete-light), 0.1) 4px
+      );
+    background-size: 50px 50px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
   }
 
   pre {
-    border-radius: 6px;
+    border-radius: 0;
     padding: 0.75rem;
+    background: var(--bg-secondary);
+    border-left: 4px solid rgb(var(--accent));
+    box-shadow: inset 0 0 0 1px var(--border-color);
   }
 
   main {
     margin: auto;
-    padding: 1rem;
+    padding: 2rem 1rem;
     width: 800px;
     max-width: calc(100% - 2rem);
-    color: white;
-    font-size: 20px;
-    line-height: 1.6;
+    color: var(--text-primary);
+    font-size: 18px;
+    line-height: 1.7;
+    position: relative;
   }
 
   code {
-    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+    font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+    background: var(--bg-secondary);
+    padding: 0.2em 0.4em;
+    border-radius: 0;
+    border: 1px solid var(--border-color);
+    font-size: 0.9em;
   }
 
   h1 {
     margin-top: 0;
     margin-bottom: 0;
-    font-weight: 700;
-    line-height: 1.4;
+    font-weight: 900;
+    line-height: 1.2;
     text-align: center;
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 400%;
-    background-position: 0%;
+    color: rgb(var(--accent));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-shadow:
+      2px 2px 0px rgba(0,0,0,0.3),
+      0 0 20px rgba(var(--accent), 0.3);
+    position: relative;
+  }
+
+  h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.3em;
+    margin-top: 1.5em;
+  }
+
+  a {
+    color: rgb(var(--accent));
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+    font-weight: 600;
+  }
+
+  a:hover {
+    border-bottom-color: rgb(var(--accent));
+    text-shadow: 0 0 8px rgba(var(--accent), 0.5);
+  }
+
+  @media (max-width: 720px) {
+    main {
+      padding: 1.5rem 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
   }
 </style>

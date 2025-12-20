@@ -21,7 +21,7 @@ const { frontmatter } = Astro.props;
 
 <Layout tabTitle={frontmatter.title}>
   <div class="heading">
-    <a href="/">&larr; Back</a>
+    <a href="/">Home</a>
     <p>{new Date(frontmatter.date).toLocaleString("en-GB", dateOptions)}</p>
   </div>
   <article>
@@ -32,19 +32,107 @@ const { frontmatter } = Astro.props;
   <style>
     h1 {
       font: 1.5rem;
+      margin: 2rem 0;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-left: 6px solid rgb(var(--accent));
+      border-right: 6px solid rgb(var(--accent));
+      box-shadow:
+        0 0 0 2px var(--border-color),
+        0 4px 0 rgba(0, 0, 0, 0.2);
+      position: relative;
     }
+
+    h1::before,
+    h1::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: var(--bg-secondary);
+      border: 2px solid rgb(var(--metal-gray));
+      border-radius: 50%;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    h1::before {
+      left: -4px;
+    }
+
+    h1::after {
+      right: -4px;
+    }
+
     .heading {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-color);
+      border-top: 4px solid rgb(var(--accent-secondary));
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+      position: relative;
+
       > a {
         display: block;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.5rem 1rem;
+        background: var(--bg-primary);
+        border: 2px solid rgb(var(--metal-gray));
+        transition: all 0.2s ease;
+      }
+
+      > a:hover {
+        background: var(--bg-secondary);
+        border-color: rgb(var(--accent));
+        transform: translateX(-2px);
       }
 
       > p {
-        font-weight: 600;
-        font-size: 1.5rem;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: rgb(var(--metal-gray));
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0;
+        padding: 0.5rem 1rem;
+        background: var(--bg-primary);
+        border: 2px solid rgb(var(--metal-gray));
+      }
+    }
+
+    article {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      border: 2px solid var(--border-color);
+      box-shadow:
+        0 0 0 1px rgba(var(--off-white), 0.05),
+        0 4px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    @media (max-width: 720px) {
+      .heading {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+      }
+
+      .heading > a,
+      .heading > p {
+        font-size: 1rem;
+        text-align: center;
+      }
+
+      article {
+        padding: 1.5rem;
       }
     }
   </style>
