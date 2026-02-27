@@ -4,35 +4,25 @@ import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
 const dateOptions = {
-  day: "2-digit", // Two-digit day
-  month: "short", // Abbreviated month name
-  year: "numeric", // Four-digit year
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
 } as const;
 
-const posts = await getCollection("blog"); // Astro.glob("./*.md");
+const posts = await getCollection("blog");
 ---
 
 <Layout tabTitle="Ruairi's Blog">
-  <div class="industrial-header">
-    <h1 class="header">
-      <span class="bracket">[</span>
-      Ruairi's Blog
-      <span class="bracket">]</span>
-    </h1>
-  </div>
+  <p class="site-description">
+    Posting thoughts and things I learned recently in an attempt to help me remember them
+  </p>
 
-  <div class="blurb">
-    <p>
-      Posting thoughts and things I learned recently in an attempt to help me remember them 😊
-    </p>
-  </div>
-
-  <div class="posts-container">
-    <div class="container-label">
-      <span>BLOG.POSTS</span>
-      <span class="count">[{posts.length} ENTRIES]</span>
+  <section class="posts-section">
+    <div class="section-header">
+      <h2>Posts</h2>
+      <span class="post-count">{posts.length} articles</span>
     </div>
-    <ul role="list" class="link-card-grid">
+    <ul role="list" class="post-list">
       {
         posts
           .sort(
@@ -51,117 +41,62 @@ const posts = await getCollection("blog"); // Astro.glob("./*.md");
           ))
       }
     </ul>
-  </div>
+  </section>
 
   <style>
-    .industrial-header {
-      position: relative;
-      margin-bottom: 2rem;
-      padding: 1rem 1.5rem;
-      background: var(--bg-secondary);
-      border: 2px solid var(--border-color);
-      border-left: 4px solid rgb(var(--accent));
-      box-shadow:
-        0 0 0 1px rgba(var(--off-white), 0.05),
-        0 4px 0 rgba(0, 0, 0, 0.3);
-    }
-
-    .header {
-      font-size: clamp(1.5rem, 4vw, 2rem);
-      margin: 0.5rem 0;
-      text-align: center;
-      position: relative;
-      font-weight: 700;
-      text-transform: none;
-    }
-
-    .bracket {
-      color: rgb(var(--industrial-orange));
-      font-weight: 700;
-    }
-
-
-    .blurb {
-      margin-bottom: 3rem;
-      padding: 1.5rem;
-      background: var(--bg-secondary);
-      border: 2px solid var(--border-color);
-      border-left: 6px solid rgb(var(--industrial-orange));
-      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
-      position: relative;
-    }
-
-    .blurb p {
-      margin: 0;
-      font-size: 1.1rem;
+    .site-description {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin: 0 0 2.5rem;
       line-height: 1.6;
-      color: var(--text-primary);
-      text-transform: none;
-      letter-spacing: normal;
     }
 
-    .posts-container {
-      position: relative;
-      padding-top: 2rem;
+    .posts-section {
+      margin-top: 0;
     }
 
-    .container-label {
+    .section-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: baseline;
       margin-bottom: 1.5rem;
-      padding: 0.8rem 1.2rem;
-      background: var(--bg-secondary);
-      border: 2px solid var(--border-color);
-      border-top: 4px solid rgb(var(--accent));
-      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.05em;
     }
 
-    .container-label .count {
-      color: rgb(var(--accent));
-      font-size: 0.9rem;
+    .section-header h2 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin: 0;
+      padding: 0;
+      border: none;
     }
 
-    .link-card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+    .post-count {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
       padding: 0;
       margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
     }
 
     @media (max-width: 720px) {
-      .industrial-header {
-        padding: 1rem;
+      .site-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
       }
 
-      .header {
-        font-size: 1.5rem;
-        margin: 0.5rem 0;
-      }
-
-
-      .blurb {
-        padding: 1.2rem;
-      }
-
-      .blurb p {
-        font-size: 0.9rem;
-      }
-
-      .container-label {
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
-        font-size: 1rem;
-      }
-
-      .link-card-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+      .site-description {
+        font-size: 0.95rem;
       }
     }
   </style>
